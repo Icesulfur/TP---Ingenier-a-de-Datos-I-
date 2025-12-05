@@ -1,5 +1,5 @@
  
--- Par·metros de entrada: @isbn VARCHAR(17), @legajo_alumno INT NULL, @legajo_docente INT NULL
+-- Par√°metros de entrada: @isbn VARCHAR(17), @legajo_alumno INT NULL, @legajo_docente INT NULL
 
 CREATE OR ALTER PROCEDURE SP_Prestar_Libro(
     @isbn VARCHAR(17),
@@ -52,7 +52,7 @@ BEGIN
             END;
         END
 
-        --Inserta registro en Prestamos_Libros con la informaciÛn indicada por par·metro y fecha de hoy
+        --Inserta registro en Prestamos_Libros con la informaci√≥n indicada por par√°metro y fecha de hoy
         INSERT INTO Prestamos_Libros (isbn, legajo_alumno, legajo_docente, fecha_prestamo)
         VALUES (@isbn, @legajo_alumno, @legajo_docente, CAST(GETDATE() AS DATE));
 
@@ -126,7 +126,7 @@ BEGIN
     --Verifica que ya haya por lo menos un examen parcial para esta cursada
     IF NOT EXISTS (SELECT 1 FROM inserted WHERE tipo = 'PAR')
         RETURN;
-    --Si encuentra m·s de un parcial desaprobado (nota < 4) considera a la Cursada como desaprobada (DES)
+    --Si encuentra m√°s de un parcial desaprobado (nota < 4) considera a la Cursada como desaprobada (DES)
     UPDATE C
     SET C.condicion = 'DES'
     FROM Cursada C
@@ -151,7 +151,7 @@ ON Examen
 INSTEAD OF INSERT
 AS
 BEGIN
---Valida, en las inserciones de examenes finales, que no se puedan tener m·s de 3 para una cursada
+--Valida, en las inserciones de examenes finales, que no se puedan tener m√°s de 3 para una cursada
     IF EXISTS (
         SELECT 1
         FROM inserted I
@@ -165,7 +165,7 @@ BEGIN
         ) >= 3
     )
     BEGIN
-        RAISERROR('El alumno ya alcanzÛ el m·ximo de 3 finales permitidos.', 16, 1);
+        RAISERROR('El alumno ya alcanz√≥ el m√°ximo de 3 finales permitidos.', 16, 1);
         RETURN;
     END;
 
@@ -175,4 +175,5 @@ BEGIN
 
 END;
 GO
+
 
